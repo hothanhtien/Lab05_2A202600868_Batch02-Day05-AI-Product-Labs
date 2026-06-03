@@ -118,7 +118,7 @@ Người dùng mất niềm tin vào hệ thống.
 
 ### Owner
 
-[Tên thành viên]
+[Hồ Thành Tiến]
 
 ## 8. Owner Plan Day 06
 
