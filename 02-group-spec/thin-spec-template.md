@@ -120,8 +120,6 @@ Người dùng mất niềm tin vào hệ thống.
 
 [Tên thành viên]
 
----
-
 ## 8. Owner Plan Day 06
 
 | Thành viên | Việc phụ trách     | Deliverable  |
@@ -131,4 +129,3 @@ Người dùng mất niềm tin vào hệ thống.
 | Member 3     | Agent Workflow        | Flow Diagram |
 | Member 4     | Agent Development     | Prototype    |
 | Member 5     | Failure Testing       | Test Cases   |
-| Member 6     | Demo & Pitch          | Demo Script  |
