@@ -1,126 +1,134 @@
 # Thin SPEC
 
-## 1. Track, product/app và user
+## 1. Track, Product và User
 
-Track:
-AI Agent
+**Track:** AI Agent
 
-Product/app thật:
-AI Travel Planner Agent
+**Product:** AI Travel Planner Agent
 
-User cụ thể:
-Người muốn du lịch tự túc và chưa có lịch trình.
+**User cụ thể:**
 
-Nhóm có phải user thật không?
+Người đi du lịch tự túc, chưa có lịch trình và không muốn mất hàng giờ nghiên cứu thông tin trước chuyến đi.
 
-Có.
+**Nhóm có phải user thật không?**
 
----
-
-## 2. Evidence summary
-
-| Evidence                                            | Nguồn      | User/pain nói lên điều gì? | SPEC phải đổi gì?      |
-| --------------------------------------------------- | ----------- | ------------------------------- | -------------------------- |
-| Người dùng mất nhiều giờ để lên kế hoạch | Self-use    | Planning quá tốn thời gian   | Tập trung vào itinerary  |
-| Thiếu thông tin đầu vào                        | Observation | AI dễ trả lời sai            | Thêm clarification        |
-| Review từ cộng đồng travel                      | Social      | Khó chọn khách sạn          | Thêm hotel recommendation |
+Có. Tất cả thành viên đều từng tự lên kế hoạch du lịch và gặp khó khăn trong việc tổng hợp thông tin.
 
 ---
 
-## 3. Pain statement
+## 2. Evidence Summary
 
-User muốn đi du lịch tự túc đang gặp khó ở bước lập kế hoạch.
-
-Vì phải tìm kiếm và tổng hợp thông tin từ nhiều nguồn.
-
-Dẫn tới mất nhiều giờ chuẩn bị và khó đưa ra quyết định.
-
-Bằng chứng chính là observation từ self-use và review cộng đồng du lịch.
+| Evidence                                           | Nguồn          | User/Pain          | SPEC thay đổi                      |
+| -------------------------------------------------- | --------------- | ------------------ | ------------------------------------ |
+| Mất 35–45 phút để tự lập lịch trình       | Self-use        | Workflow quá dài | Tập trung vào itinerary generation |
+| Thiếu dữ liệu đầu vào làm AI trả lời kém | Observation     | Thiếu trust       | Thêm clarification loop             |
+| Quá tải thông tin từ nhiều nguồn             | Review + Social | Decision fatigue   | Tập trung decision support          |
 
 ---
 
-## 4. Build slice
+## 3. Pain Statement
 
-Cho người đang lên kế hoạch du lịch.
+Người đi du lịch tự túc gặp khó khăn ở bước lập kế hoạch.
+
+Vì phải tìm kiếm, đối chiếu và tổng hợp thông tin từ nhiều nguồn khác nhau.
+
+Dẫn tới mất nhiều thời gian chuẩn bị và khó đưa ra quyết định.
+
+Bằng chứng chính là self-use observation và phản hồi từ cộng đồng du lịch.
+
+---
+
+## 4. Build Slice
+
+Cho người đang chuẩn bị một chuyến du lịch.
 
 Prototype sẽ dùng AI để:
 
-* Thu thập intent còn thiếu.
-* Tạo itinerary 3 ngày.
-* Đề xuất khách sạn phù hợp.
+1. Thu thập intent còn thiếu.
+2. Hiểu ngân sách, thời gian và sở thích.
+3. Tạo itinerary 3 ngày sơ bộ.
+4. Hiển thị itinerary trên bản đồ.
 
-Output:
+### Output
 
-* Itinerary theo ngày.
-* Danh sách địa điểm.
-* Khách sạn đề xuất.
+* Itinerary theo ngày
+* Danh sách địa điểm
+* Route trực quan trên bản đồ
 
-Failure mode:
+### Failure Mode
 
-Thông tin đầu vào không đủ.
+Thông tin đầu vào không đủ hoặc quá mơ hồ.
 
-Mitigation:
+### Mitigation
 
 AI hỏi lại trước khi lập kế hoạch.
 
 ---
 
-## 5. Auto/Aug decision
+## 5. Auto/Aug Decision
 
-[X] Conditional Automation
+☑ Augmentation
 
-Lý do chọn:
+### Lý do
 
-AI có thể tự động lập kế hoạch khi đủ dữ liệu.
+AI không thay người dùng quyết định chuyến đi.
 
-Nếu thiếu dữ liệu hoặc mơ hồ thì phải hỏi lại người dùng.
+AI chỉ tạo kế hoạch sơ bộ và hỗ trợ ra quyết định.
 
-Human role:
+Người dùng vẫn là người lựa chọn lịch trình cuối cùng.
+
+### Human Role
 
 Decider
 
 ---
 
-## 6. Four paths
+## 6. Four Paths
 
-| Path           | Prototype phải thể hiện gì?                     |
-| -------------- | --------------------------------------------------- |
-| Happy          | User cung cấp đủ thông tin → AI tạo itinerary |
-| Low-confidence | Thiếu ngân sách hoặc số ngày → AI hỏi lại  |
-| Failure        | User nhập yêu cầu quá mơ hồ → kế hoạch sai |
-| Correction     | User bổ sung thông tin → AI tạo lại kế hoạch |
+| Path           | Prototype phải thể hiện gì                            |
+| -------------- | --------------------------------------------------------- |
+| Happy          | User cung cấp đầy đủ thông tin → AI tạo itinerary |
+| Low-confidence | Thiếu ngân sách hoặc thời gian → AI hỏi lại       |
+| Failure        | AI tạo lịch trình vượt quá ngân sách thực tế    |
+| Correction     | User chỉnh ngân sách → AI tạo lại lịch trình      |
 
 ---
 
-## 7. Failure mode nguy hiểm nhất
+## 7. Failure Mode Nguy Hiểm Nhất
 
-Nếu user chỉ nhập:
+### Trigger
 
-"Tôi muốn đi Nhật"
+User yêu cầu:
 
-AI có thể tạo lịch trình sai hoàn toàn so với nhu cầu thực tế.
+"Tôi muốn đi Đà Lạt 3 ngày với 5 triệu."
 
-Hậu quả:
+### Failure
 
-Mất niềm tin vào hệ thống.
+AI sinh lịch trình có tổng chi phí thực tế vượt xa ngân sách.
 
-Prototype sẽ xử lý bằng:
+### Impact
 
-Ask Again.
+Người dùng mất niềm tin vào hệ thống.
 
-Owner kiểm thử path này là:
+### Mitigation
+
+* Hiển thị estimated budget
+* Cho phép regenerate
+* Cho phép user chỉnh ràng buộc
+
+### Owner
 
 [Tên thành viên]
 
 ---
 
-## 8. Owner plan cho sáng Day 06
+## 8. Owner Plan Day 06
 
-| Thành viên | Việc phụ trách | Bằng chứng cần có trong repo |
-| ------------ | ----------------- | -------------------------------- |
-| Member 1     | Research          | Evidence                         |
-| Member 2     | SPEC              | Thin SPEC                        |
-| Member 3     | Agent Workflow    | Diagram                          |
-| Member 4     | Prototype         | Demo                             |
-| Member 5     | Testing           | Failure Cases                    |
-|              |                   |                                  |
+| Thành viên | Việc phụ trách     | Deliverable  |
+| ------------ | --------------------- | ------------ |
+| Member 1     | Research & Validation | Evidence     |
+| Member 2     | SPEC & Documentation  | Thin SPEC    |
+| Member 3     | Agent Workflow        | Flow Diagram |
+| Member 4     | Agent Development     | Prototype    |
+| Member 5     | Failure Testing       | Test Cases   |
+| Member 6     | Demo & Pitch          | Demo Script  |
